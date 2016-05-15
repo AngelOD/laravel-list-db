@@ -12,6 +12,6 @@
         "psr-0": {
             "A2Design": "src"
         }
-    }
+    },
     "require": {}
 }
