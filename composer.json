@@ -1,0 +1,12 @@
+{
+    "name": "a2design/laravel-list-db",
+    "description": "Allows DB structure listing (with types)",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vladislav Bezverkhiy",
+            "email": "bezverhiy@a2design.biz"
+        }
+    ],
+    "require": {}
+}
