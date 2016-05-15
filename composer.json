@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "A2Design\\LaravelListDb": "src/"
+            "A2Design\\LaravelListDb\\": "src/"
         }
     },
     "require": {
