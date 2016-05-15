@@ -30,3 +30,18 @@ And for models:
 ```
     php artidan model:columns modelName
 ```
+
+
+## Foramting
+
+- `%po` - Platform options
+- `%nn` - Not Null
+- `%dt` - Default Value
+- `%ai` - Auto Increment
+- `%c` - Column Name
+- `%t` - Column Type
+- `%u` - Unsigned
+- `%l` - Column Length
+- `%p` - Column Precision
+- `%s` - Column Scale
+- `%f` - Column is fixed
