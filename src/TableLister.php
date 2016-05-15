@@ -2,13 +2,15 @@
 
 namespace A2Design\LaravelListDb;
 
+use DB;
+
 class TableLister 
 {
 
 
 	public static $defaultExclude = ['id', 'created_at', 'updated_at'];
 
-    public static function getColumnListing($tableName)
+    public static function getColumns($tableName)
     {
         $columns = DB::connection()
           ->getDoctrineSchemaManager()
@@ -17,7 +19,7 @@ class TableLister
         return $columns;
     }
 
-    public static function formatColumns($columns, $format = "%c#%t", $excludeList = self::$defaultExclude])
+    public static function format($columns, $format = "%c#%t", $excludeList = ['id', 'created_at', 'updated_at'])
     {
         $formatted = [];
         foreach ($columns as $key => $column) {
@@ -34,4 +36,4 @@ class TableLister
         return $formatted;
     }
 	
-} 
+}
