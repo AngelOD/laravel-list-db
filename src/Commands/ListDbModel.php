@@ -14,14 +14,14 @@ class ListDbModel extends Command
      *
      * @var string
      */
-    protected $signature = 'model:columns {modelName}';
+    protected $signature = 'model:columns {modelName} {--f|format=%c#%t : columns format} {--e|exclude=id,created_at,updated_at : exlude speicifid columns}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Returns models\'s table columns listing with speicified formating';
 
 
     private $__format = "%c#%t";
@@ -46,9 +46,11 @@ class ListDbModel extends Command
         $modelName = $this->argument('modelName');
         $tableName = $this->getModelsTable($modelName);
 
+        $format = $this->option('format');
+
         $columns = TableLister::getColumns($tableName);
 
-        $output = TableLister::format($columns);
+        $output = TableLister::format($columns, $format);
 
         $this->info(implode(', ', $output));
     }
