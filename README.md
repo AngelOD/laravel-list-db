@@ -32,7 +32,7 @@ And for models:
 ```
 
 
-## Foramting
+## Formatting
 
 - `%po` - Platform options
 - `%nn` - Not Null
