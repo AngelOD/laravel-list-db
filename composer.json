@@ -13,6 +13,8 @@
             "A2Design": "src"
         }
     },
-    "require": {},
+    "require": {
+        "doctrine/dbal": "^2.5"
+    },
     "minimum-stability" : "dev"
 }
