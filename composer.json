@@ -8,5 +8,10 @@
             "email": "bezverhiy@a2design.biz"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "A2Design": "src"
+        }
+    }
     "require": {}
 }
