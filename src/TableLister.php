@@ -4,7 +4,7 @@ namespace A2Design\LaravelListDb;
 
 use DB;
 
-class TableLister 
+class TableLister
 {
 
 
@@ -27,7 +27,12 @@ class TableLister
                 continue;
             }
             $str = $format;
-            $str = str_replace('%po', $column->getPlatformOptions(), $str);
+
+            if (strpos($str, '%po') !== false) {
+                $options = $column->getPlatformOptions();
+
+                $str = str_replace('%po', implode(':', $options), $str);
+            }
             $str = str_replace('%nn', $column->getNotnull(), $str);
             $str = str_replace('%dt', $column->getDefault(), $str);
             $str = str_replace('%ai', $column->getAutoincrement(), $str);
@@ -44,5 +49,5 @@ class TableLister
 
         return $formatted;
     }
-	
+
 }
