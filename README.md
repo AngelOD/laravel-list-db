@@ -4,17 +4,19 @@ Allows DB structure listing (with types)
 
 ## Installation
 
+* Run Composer install
+
 ```
     composer require a2design/laravel-list-db
 ```
 
-## Usage
+* Add service provider to your app config:
 
-Add service provider to your app config:
-
-```
-    ...
+``` php
+    'providers' => [
+        ...
         A2Design\LaravelListDb\ListDbServiceProvider::class,
+    ],
     ...
 ```
 
