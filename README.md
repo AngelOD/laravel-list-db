@@ -1,6 +1,7 @@
 # laravel-list-db
 Allows DB structure listing (with types)
 
+[![Code Climate](https://codeclimate.com/github/a2design-inc/laravel-list-db/badges/gpa.svg)](https://codeclimate.com/github/a2design-inc/laravel-list-db)
 
 ## Installation
 
