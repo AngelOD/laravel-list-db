@@ -21,7 +21,7 @@ If you want to see table columns listing, use:
 And for models:
 
 ```
-    php artidan model:columns modelName
+    php artisan model:columns modelName
 ```
 
 
