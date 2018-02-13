@@ -1,24 +1,14 @@
 # laravel-list-db
 Allows DB structure listing (with types)
 
-[![Code Climate](https://codeclimate.com/github/a2design-inc/laravel-list-db/badges/gpa.svg)](https://codeclimate.com/github/a2design-inc/laravel-list-db)
+[![Code Climate](https://codeclimate.com/github/AngelOD/laravel-list-db/badges/gpa.svg)](https://codeclimate.com/github/AngelOD/laravel-list-db)
 
 ## Installation
 
 * Run Composer install
 
 ```
-    composer require a2design/laravel-list-db
-```
-
-* Add service provider to your app config:
-
-``` php
-    'providers' => [
-        ...
-        A2Design\LaravelListDb\ListDbServiceProvider::class,
-    ],
-    ...
+    composer require angelod/laravel-list-db
 ```
 
 

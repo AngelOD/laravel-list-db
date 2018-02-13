@@ -14,14 +14,14 @@ class ListDbTable extends Command
      *
      * @var string
      */
-    protected $signature = 'table:columns {tableName} {--f|format=%c#%t : columns format} {--e|exclude=id,created_at,updated_at : exlude speicifid columns}';
+    protected $signature = 'table:columns {tableName} {--f|format=%c#%t : columns format} {--e|exclude=id,created_at,updated_at : exclude specified columns}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Returns table columns listing with speicified formating';
+    protected $description = 'Returns table columns listing with specified formatting';
 
 
     private $__format = "%c#%t";
