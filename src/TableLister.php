@@ -1,6 +1,6 @@
 <?php
 
-namespace A2Design\LaravelListDb;
+namespace AngelOD\LaravelListDb;
 
 use DB;
 

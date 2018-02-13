@@ -1,14 +1,14 @@
 <?php
 
-namespace A2Design\LaravelListDb\Commands;
+namespace AngelOD\LaravelListDb\Commands;
 
 use Illuminate\Console\Command;
-use A2Design\LaravelListDb\TableLister;
+use AngelOD\LaravelListDb\TableLister;
 
 class ListDbTable extends Command
 {
 
-    use \Illuminate\Console\AppNamespaceDetectorTrait;
+    use \Illuminate\Console\DetectsApplicationNamespace;
     /**
      * The name and signature of the console command.
      *

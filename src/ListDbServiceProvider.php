@@ -1,5 +1,5 @@
 <?php
-namespace A2Design\LaravelListDb;
+namespace AngelOD\LaravelListDb;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +22,8 @@ class ListDbServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->commands(
-            \A2Design\LaravelListDb\Commands\ListDbTable::class,
-            \A2Design\LaravelListDb\Commands\ListDbModel::class
+            \AngelOD\LaravelListDb\Commands\ListDbTable::class,
+            \AngelOD\LaravelListDb\Commands\ListDbModel::class
         );
     }
 
