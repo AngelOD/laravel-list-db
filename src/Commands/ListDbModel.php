@@ -14,14 +14,14 @@ class ListDbModel extends Command
      *
      * @var string
      */
-    protected $signature = 'model:columns {modelName} {--f|format=%c#%t : columns format} {--e|exclude=id,created_at,updated_at : exclude specified columns}';
+    protected $signature = 'dbshow:model {modelNames*} {--f|format=%c#%t : columns format} {--e|exclude=id,created_at,updated_at : exclude specified columns}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Returns models\'s table columns listing with specified formatting';
+    protected $description = 'Returns models\' table columns listing with specified formatting';
 
 
     private $__format = "%c#%t";
@@ -43,16 +43,16 @@ class ListDbModel extends Command
      */
     public function handle()
     {
-        $modelName = $this->argument('modelName');
-        $tableName = $this->getModelsTable($modelName);
+        $modelNames = $this->argument('modelNames');
 
-        $format = $this->option('format');
+        foreach ($modelNames as $modelName) {
+            $tableName = $this->getModelsTable($modelName);
+            $format = $this->option('format');
+            $columns = TableLister::getColumns($tableName);
+            $output = TableLister::format($columns, $format);
 
-        $columns = TableLister::getColumns($tableName);
-
-        $output = TableLister::format($columns, $format);
-
-        $this->info(implode(', ', $output));
+            $this->info(implode(', ', $output));
+        }
     }
 
     public function getModelsTable($modelName)
