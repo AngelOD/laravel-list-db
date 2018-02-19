@@ -69,7 +69,7 @@ class ListDbTables extends Command
                 $columns = $table->getColumns();
                 $output = TableLister::format($columns, $toShow);
 
-                $this->info('Table: ' . $tableName);
+                $this->info('Table: ' . $table->getName());
                 $this->table($output['headers'], $output['rows']);
                 $this->line('');
             }
