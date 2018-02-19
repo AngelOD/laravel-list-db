@@ -52,7 +52,13 @@ class ListDbTables extends Command
 
         if ($short === true) {
             foreach ($tables as $table) {
-                $this->info($table->getName());
+                $columns = [];
+
+                foreach ($table->getColumns() as $column) {
+                    $columns[] = $column->getName();
+                }
+
+                $this->info($table->getName() . ': ' . implode(', ', $columns));
             }
 
             $this->line('');
