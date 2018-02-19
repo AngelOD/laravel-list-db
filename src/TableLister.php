@@ -9,45 +9,80 @@ class TableLister
 
 
 	public static $defaultExclude = ['id', 'created_at', 'updated_at'];
+    public static $defaultToShow = ['name', 'type'];
+    public static $longToShow = ['name', 'type', 'null', 'default', 'autoinc', 'unsigned', 'length', 'precision', 'scale', 'fixed'];
+    public static $verboseToShow = ['name', 'type', 'null', 'default', 'autoinc', 'unsigned', 'length', 'precision', 'scale', 'fixed', 'platform'];
 
+    /**
+     * 
+     */
+    public static function getTables()
+    {
+        $tables = DB::connection()
+                    ->getDoctrineSchemaManager()
+                    ->listTables();
+
+        return $tables;
+    }
+
+    /**
+     * 
+     */
     public static function getColumns($tableName)
     {
         $columns = DB::connection()
-          ->getDoctrineSchemaManager()
-          ->listTableColumns($tableName);
+                    ->getDoctrineSchemaManager()
+                    ->listTableColumns($tableName);
 
         return $columns;
     }
 
-    public static function format($columns, $format = "%c#%t", $excludeList = ['id', 'created_at', 'updated_at'])
+    /**
+     * 
+     */
+    public static function format($columns, $toShow, $excludeList = ['id', 'created_at', 'updated_at'])
     {
-        $formatted = [];
-        foreach ($columns as $key => $column) {
+        $toShowData = [
+            'name' => function ($c) { return $c->getName(); },
+            'type' => function ($c) { return $c->getType()->getName(); },
+            'null' => function ($c) { return $c->getNotnull(); },
+            'default' => function ($c) { return $c->getDefault(); },
+            'autoinc' => function ($c) { return $c->getAutoincrement(); },
+            'unsigned' => function ($c) { return $c->getUnsigned(); },
+            'length' => function ($c) { return $c->getLength(); },
+            'precision' => function ($c) { return $c->getPrecision(); },
+            'scale' => function ($c) { return $c->getScale(); },
+            'fixed' => function ($c) { return $c->getFixed(); },
+            'platform' => function ($c) {
+                $options = $c->getPlatformOptions();
+                return implode(':', $options);
+            }
+        ];
+
+        $retVal = [
+            'headers' => [],
+            'rows' => [],
+        ];
+
+        foreach ($toShow as $entry) {
+            $retVal['headers'][] = $entry;
+        }
+
+        foreach ($columns as $column) {
             if (in_array($column->getName(), $excludeList)) {
                 continue;
             }
-            $str = $format;
 
-            if (strpos($str, '%po') !== false) {
-                $options = $column->getPlatformOptions();
+            $row = [];
 
-                $str = str_replace('%po', implode(':', $options), $str);
+            foreach ($toShow as $entry) {
+                $row[$entry] = $toShowData[$entry]($column);
             }
-            $str = str_replace('%nn', $column->getNotnull(), $str);
-            $str = str_replace('%dt', $column->getDefault(), $str);
-            $str = str_replace('%ai', $column->getAutoincrement(), $str);
-            $str = str_replace('%c', $column->getName(), $str);
-            $str = str_replace('%t', $column->getType()->getName(), $str);
-            $str = str_replace('%u', $column->getUnsigned(), $str);
-            $str = str_replace('%l', $column->getLength(), $str);
-            $str = str_replace('%p', $column->getPrecision(), $str);
-            $str = str_replace('%s', $column->getScale(), $str);
-            $str = str_replace('%f', $column->getFixed(), $str);
 
-            $formatted[] = $str;
+            $retVal['rows'][] = $row;
         }
 
-        return $formatted;
+        return $retVal;
     }
 
 }

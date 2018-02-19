@@ -5,7 +5,7 @@ namespace AngelOD\LaravelListDb\Commands;
 use Illuminate\Console\Command;
 use AngelOD\LaravelListDb\TableLister;
 
-class ListDbTable extends Command
+class ListDbTables extends Command
 {
 
     use \Illuminate\Console\DetectsApplicationNamespace;
@@ -14,7 +14,8 @@ class ListDbTable extends Command
      *
      * @var string
      */
-    protected $signature = 'dbshow:table {tableNames*} '
+    protected $signature = 'dbshow:tables '
+                            .'{--s|short : Only list the names} '
                             .'{--l|long : More information} '
                             .'{--v|verbose : All of the information} '
                             .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';
@@ -44,25 +45,34 @@ class ListDbTable extends Command
      */
     public function handle()
     {
-        $tableNames = $this->argument('tableNames');
+        $short = $this->option('short');
         $long = $this->option('long');
         $verbose = $this->option('verbose');
+        $tables = TableLister::getTables();
 
-        if ($verbose === true) {
-            $toShow = TableLister::$verboseToShow;
-        } elseif ($long === true) {
-            $toShow = TableLister::$longToShow;
-        } else {
-            $toShow = TableLister::$defaultToShow;
-        }
+        if ($short === true) {
+            foreach ($tables as $table) {
+                $this->info($table->getName());
+            }
 
-        foreach ($tableNames as $tableName) {
-            $columns = TableLister::getColumns($tableName);
-            $output = TableList::format($columns, $toShow);
-
-            $this->info('Table: ' . $tableName);
-            $this->table($output['headers'], $output['rows']);
             $this->line('');
+        } else {
+            if ($verbose === true) {
+                $toShow = TableLister::$verboseToShow;
+            } elseif ($long === true) {
+                $toShow = TableLister::$longToShow;
+            } else {
+                $toShow = TableLister::$defaultToShow;
+            }
+
+            foreach ($tables as $table) {
+                $columns = $table->getColumns();
+                $output = TableList::format($columns, $toShow);
+
+                $this->info('Table: ' . $tableName);
+                $this->table($output['headers'], $output['rows']);
+                $this->line('');
+            }
         }
     }
 }

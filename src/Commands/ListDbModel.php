@@ -14,7 +14,10 @@ class ListDbModel extends Command
      *
      * @var string
      */
-    protected $signature = 'dbshow:model {modelNames*} {--f|format=%c#%t : columns format} {--e|exclude=id,created_at,updated_at : exclude specified columns}';
+    protected $signature = 'dbshow:model {modelNames*} '
+                            .'{--l|long : More information} '
+                            .'{--v|verbose : All of the information} '
+                            .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';
 
     /**
      * The console command description.
@@ -24,7 +27,6 @@ class ListDbModel extends Command
     protected $description = 'Returns models\' table columns listing with specified formatting';
 
 
-    private $__format = "%c#%t";
     /**
      * Create a new command instance.
      *
@@ -44,22 +46,45 @@ class ListDbModel extends Command
     public function handle()
     {
         $modelNames = $this->argument('modelNames');
+        $long = $this->option('long');
+        $verbose = $this->option('verbose');
+
+        if ($verbose === true) {
+            $toShow = TableLister::$verboseToShow;
+        } elseif ($long === true) {
+            $toShow = TableLister::$longToShow;
+        } else {
+            $toShow = TableLister::$defaultToShow;
+        }
 
         foreach ($modelNames as $modelName) {
             $tableName = $this->getModelsTable($modelName);
-            $format = $this->option('format');
             $columns = TableLister::getColumns($tableName);
-            $output = TableLister::format($columns, $format);
+            $output = TableLister::format($columns, $toShow);
 
-            $this->info(implode(', ', $output));
+            $this->info('Class: ' . $this->getClassName($modelName));
+            $this->table($output['headers'], $output['rows']);
+            $this->line('');
         }
     }
 
-    public function getModelsTable($modelName)
-    {
+    /**
+     * 
+     */
+    protected function getClassName($modelName) {
         $appNamespace = $this->getAppNamespace();
         $namespacedModelName = str_replace('/', '\\', $modelName);
         $className = "{$appNamespace}{$namespacedModelName}";
+
+        return $className;
+    }
+
+    /**
+     * 
+     */
+    public function getModelsTable($modelName)
+    {
+        $className = $this->getClassName($modelName);
         $tableName = (new $className)->getTable();
 
         return $tableName;
