@@ -15,7 +15,7 @@ class ListDbTables extends Command
      * @var string
      */
     protected $signature = 'dbshow:tables '
-                            .'{--s|short : Only list the names} '
+                            .'{--s|short : Very brief display (ignores exclude option)} '
                             .'{--l|long : More information} '
                             .'{--f|full : All of the information} '
                             .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';
