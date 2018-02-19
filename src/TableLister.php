@@ -11,7 +11,7 @@ class TableLister
 	public static $defaultExclude = ['id', 'created_at', 'updated_at'];
     public static $defaultToShow = ['name', 'type'];
     public static $longToShow = ['name', 'type', 'null', 'default', 'autoinc', 'unsigned', 'length', 'precision', 'scale', 'fixed'];
-    public static $verboseToShow = ['name', 'type', 'null', 'default', 'autoinc', 'unsigned', 'length', 'precision', 'scale', 'fixed', 'platform'];
+    public static $fullToShow = ['name', 'type', 'null', 'default', 'autoinc', 'unsigned', 'length', 'precision', 'scale', 'fixed', 'platform'];
 
     /**
      * 

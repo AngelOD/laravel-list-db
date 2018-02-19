@@ -16,7 +16,7 @@ class ListDbModel extends Command
      */
     protected $signature = 'dbshow:model {modelNames*} '
                             .'{--l|long : More information} '
-                            .'{--v|verbose : All of the information} '
+                            .'{--f|full : All of the information} '
                             .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';
 
     /**
@@ -47,10 +47,10 @@ class ListDbModel extends Command
     {
         $modelNames = $this->argument('modelNames');
         $long = $this->option('long');
-        $verbose = $this->option('verbose');
+        $full = $this->option('full');
 
-        if ($verbose === true) {
-            $toShow = TableLister::$verboseToShow;
+        if ($full === true) {
+            $toShow = TableLister::$fullToShow;
         } elseif ($long === true) {
             $toShow = TableLister::$longToShow;
         } else {

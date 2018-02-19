@@ -16,7 +16,7 @@ class ListDbTable extends Command
      */
     protected $signature = 'dbshow:table {tableNames*} '
                             .'{--l|long : More information} '
-                            .'{--v|verbose : All of the information} '
+                            .'{--f|full : All of the information} '
                             .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';
 
     /**
@@ -46,10 +46,10 @@ class ListDbTable extends Command
     {
         $tableNames = $this->argument('tableNames');
         $long = $this->option('long');
-        $verbose = $this->option('verbose');
+        $full = $this->option('full');
 
-        if ($verbose === true) {
-            $toShow = TableLister::$verboseToShow;
+        if ($full === true) {
+            $toShow = TableLister::$fullToShow;
         } elseif ($long === true) {
             $toShow = TableLister::$longToShow;
         } else {
