@@ -67,7 +67,7 @@ class ListDbTables extends Command
 
             foreach ($tables as $table) {
                 $columns = $table->getColumns();
-                $output = TableList::format($columns, $toShow);
+                $output = TableLister::format($columns, $toShow);
 
                 $this->info('Table: ' . $tableName);
                 $this->table($output['headers'], $output['rows']);
