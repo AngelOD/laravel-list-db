@@ -45,6 +45,7 @@ class ListDbTables extends Command
      */
     public function handle()
     {
+        $exclude = $this->option('exclude');
         $short = $this->option('short');
         $long = $this->option('long');
         $full = $this->option('full');

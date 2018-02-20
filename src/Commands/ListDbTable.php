@@ -45,6 +45,7 @@ class ListDbTable extends Command
     public function handle()
     {
         $tableNames = $this->argument('tableNames');
+        $exclude = $this->option('exclude');
         $long = $this->option('long');
         $full = $this->option('full');
 
@@ -58,7 +59,7 @@ class ListDbTable extends Command
 
         foreach ($tableNames as $tableName) {
             $columns = TableLister::getColumns($tableName);
-            $output = TableLister::format($columns, $toShow);
+            $output = TableLister::format($columns, $toShow, $exclude);
 
             $this->info('Table: ' . $tableName);
             $this->table($output['headers'], $output['rows']);

@@ -46,6 +46,7 @@ class ListDbModel extends Command
     public function handle()
     {
         $modelNames = $this->argument('modelNames');
+        $exclude = $this->option('exclude');
         $long = $this->option('long');
         $full = $this->option('full');
 
@@ -69,7 +70,7 @@ class ListDbModel extends Command
     }
 
     /**
-     * 
+     *
      */
     protected function getClassName($modelName) {
         $appNamespace = $this->getAppNamespace();
@@ -80,7 +81,7 @@ class ListDbModel extends Command
     }
 
     /**
-     * 
+     *
      */
     public function getModelsTable($modelName)
     {

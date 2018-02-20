@@ -14,7 +14,7 @@ class TableLister
     public static $fullToShow = ['name', 'type', 'null', 'default', 'autoinc', 'unsigned', 'length', 'precision', 'scale', 'fixed', 'platform'];
 
     /**
-     * 
+     *
      */
     public static function getTables()
     {
@@ -26,7 +26,7 @@ class TableLister
     }
 
     /**
-     * 
+     *
      */
     public static function getColumns($tableName)
     {
@@ -38,7 +38,7 @@ class TableLister
     }
 
     /**
-     * 
+     *
      */
     public static function format($columns, $toShow, $excludeList = ['id', 'created_at', 'updated_at'])
     {
@@ -58,6 +58,10 @@ class TableLister
                 return implode(':', $options);
             }
         ];
+
+        if (!is_array($excludeList)) {
+            $excludeList = [];
+        }
 
         $retVal = [
             'headers' => [],
