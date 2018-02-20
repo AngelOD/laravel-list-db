@@ -4,18 +4,21 @@ namespace AngelOD\LaravelListDb\Commands;
 
 use Illuminate\Console\Command;
 use AngelOD\LaravelListDb\TableLister;
+use Symfony\Component\Finder\Finder as SymfonyFinder;
+use hanneskod\classtools\Iterator\ClassIterator;
 
-class ListDbModel extends Command
+class ListDbModels extends Command
 {
 
     use \Illuminate\Console\DetectsApplicationNamespace;
-    
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dbshow:model {modelNames*} '
+    protected $signature = 'dbshow:models '
+                            .'{--s|short : Short and simple} '
                             .'{--l|long : More information} '
                             .'{--f|full : All of the information} '
                             .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';
@@ -46,10 +49,18 @@ class ListDbModel extends Command
      */
     public function handle()
     {
-        $modelNames = $this->argument('modelNames');
         $exclude = $this->option('exclude');
         $long = $this->option('long');
         $full = $this->option('full');
+
+        $finder = new SymfonyFinder();
+        $iter = new ClassIterator($finder->in(app_path()));
+        $iter->enableAutoloading();
+
+        $modelClasses = [];
+        foreach ($iter as $class) {
+            $modelClasses[] = $class->getName();
+        }
 
         if ($full === true) {
             $toShow = TableLister::$fullToShow;
@@ -59,36 +70,14 @@ class ListDbModel extends Command
             $toShow = TableLister::$defaultToShow;
         }
 
-        foreach ($modelNames as $modelName) {
-            $tableName = $this->getModelsTable($modelName);
+        foreach ($modelClasses as $modelClass) {
+            $tableName = (new $modelClass)->getTable();
             $columns = TableLister::getColumns($tableName);
             $output = TableLister::format($columns, $toShow, $exclude);
 
-            $this->info('Class: ' . $this->getClassName($modelName));
+            $this->info('Class: ' . $modelClass);
             $this->table($output['headers'], $output['rows']);
             $this->line('');
         }
-    }
-
-    /**
-     *
-     */
-    protected function getClassName($modelName) {
-        $appNamespace = $this->getAppNamespace();
-        $namespacedModelName = str_replace('/', '\\', $modelName);
-        $className = "{$appNamespace}{$namespacedModelName}";
-
-        return $className;
-    }
-
-    /**
-     *
-     */
-    public function getModelsTable($modelName)
-    {
-        $className = $this->getClassName($modelName);
-        $tableName = (new $className)->getTable();
-
-        return $tableName;
     }
 }

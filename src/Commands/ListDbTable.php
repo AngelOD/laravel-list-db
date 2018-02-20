@@ -9,6 +9,7 @@ class ListDbTable extends Command
 {
 
     use \Illuminate\Console\DetectsApplicationNamespace;
+    
     /**
      * The name and signature of the console command.
      *
