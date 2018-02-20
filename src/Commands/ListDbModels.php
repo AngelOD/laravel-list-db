@@ -49,6 +49,7 @@ class ListDbModels extends Command
      */
     public function handle()
     {
+        $short = $this->option('short');
         $exclude = $this->option('exclude');
         $long = $this->option('long');
         $full = $this->option('full');
@@ -63,22 +64,37 @@ class ListDbModels extends Command
             $modelClasses[] = $class->getName();
         }
 
-        if ($full === true) {
-            $toShow = TableLister::$fullToShow;
-        } elseif ($long === true) {
-            $toShow = TableLister::$longToShow;
-        } else {
-            $toShow = TableLister::$defaultToShow;
-        }
+        if ($short === true) {
+            foreach ($modelClasses as $modelClass) {
+                $tableName = (new $modelClass)->getTable();
+                $columns = [];
 
-        foreach ($modelClasses as $modelClass) {
-            $tableName = (new $modelClass)->getTable();
-            $columns = TableLister::getColumns($tableName);
-            $output = TableLister::format($columns, $toShow, $exclude);
+                foreach (TableLister::getColumns($tableName) as $column) {
+                    $columns[] = $column->getName();
+                }
 
-            $this->info('Class: ' . $modelClass);
-            $this->table($output['headers'], $output['rows']);
+                $this->info($modelClass . ': ' . implode(', ', $columns));
+            }
+
             $this->line('');
+        } else {
+            if ($full === true) {
+                $toShow = TableLister::$fullToShow;
+            } elseif ($long === true) {
+                $toShow = TableLister::$longToShow;
+            } else {
+                $toShow = TableLister::$defaultToShow;
+            }
+
+            foreach ($modelClasses as $modelClass) {
+                $tableName = (new $modelClass)->getTable();
+                $columns = TableLister::getColumns($tableName);
+                $output = TableLister::format($columns, $toShow, $exclude);
+
+                $this->info('Class: ' . $modelClass);
+                $this->table($output['headers'], $output['rows']);
+                $this->line('');
+            }
         }
     }
 }
