@@ -54,7 +54,8 @@ class ListDbModels extends Command
         $full = $this->option('full');
 
         $finder = new SymfonyFinder();
-        $iter = new ClassIterator($finder->files(app_path()));
+        $finder->in(app_path());
+        $iter = new ClassIterator($finder->files());
         $iter->enableAutoloading();
 
         $modelClasses = [];
