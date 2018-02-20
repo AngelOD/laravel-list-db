@@ -58,7 +58,7 @@ class ListDbModels extends Command
         $iter->enableAutoloading();
 
         $modelClasses = [];
-        foreach ($iter as $class) {
+        foreach ($iter->type('Illuminate\Database\Eloquent\Model') as $class) {
             $modelClasses[] = $class->getName();
         }
 
