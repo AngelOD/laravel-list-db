@@ -59,6 +59,10 @@ class TableLister
             }
         ];
 
+        if (is_string($excludeList)) {
+            $excludeList = explode(',', $excludeList);
+        }
+
         if (!is_array($excludeList)) {
             $excludeList = [];
         }
