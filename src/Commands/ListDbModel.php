@@ -61,7 +61,7 @@ class ListDbModel extends Command
         foreach ($modelNames as $modelName) {
             $tableName = $this->getModelsTable($modelName);
             $columns = TableLister::getColumns($tableName);
-            $output = TableLister::format($columns, $toShow);
+            $output = TableLister::format($columns, $toShow, $exclude);
 
             $this->info('Class: ' . $this->getClassName($modelName));
             $this->table($output['headers'], $output['rows']);
