@@ -53,6 +53,8 @@ class ListDbTables extends Command
         $tables = TableLister::getTables();
 
         if ($short === true) {
+            $this->line('');
+            
             foreach ($tables as $table) {
                 $columns = [];
 
@@ -60,7 +62,8 @@ class ListDbTables extends Command
                     $columns[] = $column->getName();
                 }
 
-                $this->info($table->getName() . ': ' . implode(', ', $columns));
+                $this->info($table->getName() . ':');
+                $this->info('    ' . implode(', ', $columns));
             }
 
             $this->line('');

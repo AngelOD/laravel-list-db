@@ -65,6 +65,8 @@ class ListDbModels extends Command
         }
 
         if ($short === true) {
+            $this->line('');
+            
             foreach ($modelClasses as $modelClass) {
                 $tableName = (new $modelClass)->getTable();
                 $columns = [];
@@ -73,7 +75,8 @@ class ListDbModels extends Command
                     $columns[] = $column->getName();
                 }
 
-                $this->info($modelClass . ': ' . implode(', ', $columns));
+                $this->info($modelClass . ':');
+                $this->info('    ' . implode(', ', $columns));
             }
 
             $this->line('');
