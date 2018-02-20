@@ -23,6 +23,7 @@ class ListDbServiceProvider extends ServiceProvider {
     {
         $this->commands(
             \AngelOD\LaravelListDb\Commands\ListDbModel::class,
+            \AngelOD\LaravelListDb\Commands\ListDbModels::class,
             \AngelOD\LaravelListDb\Commands\ListDbTable::class,
             \AngelOD\LaravelListDb\Commands\ListDbTables::class
         );
