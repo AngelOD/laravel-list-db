@@ -1,7 +1,5 @@
 # laravel-list-db
-Allows DB structure listing (with types)
-
-[![Code Climate](https://codeclimate.com/github/AngelOD/laravel-list-db/badges/gpa.svg)](https://codeclimate.com/github/AngelOD/laravel-list-db)
+Allows DB structure listing for Laravel's Eloquent models.
 
 ## Installation
 
@@ -15,26 +13,22 @@ Allows DB structure listing (with types)
 If you want to see table columns listing, use:
 
 ```
-    php artisan table:columns tableName
+    php artisan dbshow:table tableName
 ```
 
 And for models:
 
 ```
-    php artisan model:columns modelName
+    php artisan dbshow:model modelName
 ```
 
+There are also versions that works on all the tables or models:
 
-## Formatting
+```
+    php artisan dbshow:tables
+    
+    php artisan dbshow:models
+```
 
-- `%po` - Platform options
-- `%nn` - Not Null
-- `%dt` - Default Value
-- `%ai` - Auto Increment
-- `%c` - Column Name
-- `%t` - Column Type
-- `%u` - Unsigned
-- `%l` - Column Length
-- `%p` - Column Precision
-- `%s` - Column Scale
-- `%f` - Column is fixed
+In addition there are a few options deciding how much should be displayed in the listings.
+These can be seen by using the ```--help``` option with a given command.
