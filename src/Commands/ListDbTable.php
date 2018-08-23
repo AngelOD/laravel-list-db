@@ -9,13 +9,13 @@ class ListDbTable extends Command
 {
 
     use \Illuminate\Console\DetectsApplicationNamespace;
-    
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dbshow:table {tableNames*} '
+    protected $signature = 'show:table {tableNames*} '
                             .'{--l|long : More information} '
                             .'{--f|full : All of the information} '
                             .'{--e|exclude=id,created_at,updated_at : exclude specified columns}';

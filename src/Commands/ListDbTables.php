@@ -9,13 +9,13 @@ class ListDbTables extends Command
 {
 
     use \Illuminate\Console\DetectsApplicationNamespace;
-    
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dbshow:tables '
+    protected $signature = 'show:tables '
                             .'{--s|short : Very brief display (ignores exclude option)} '
                             .'{--l|long : More information} '
                             .'{--f|full : All of the information} '
@@ -54,7 +54,7 @@ class ListDbTables extends Command
 
         if ($short === true) {
             $this->line('');
-            
+
             foreach ($tables as $table) {
                 $columns = [];
 

@@ -17,7 +17,7 @@ class ListDbModels extends Command
      *
      * @var string
      */
-    protected $signature = 'dbshow:models '
+    protected $signature = 'show:models '
                             .'{--s|short : Short and simple} '
                             .'{--l|long : More information} '
                             .'{--f|full : All of the information} '
@@ -66,7 +66,7 @@ class ListDbModels extends Command
 
         if ($short === true) {
             $this->line('');
-            
+
             foreach ($modelClasses as $modelClass) {
                 $tableName = (new $modelClass)->getTable();
                 $columns = [];
