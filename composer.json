@@ -28,7 +28,7 @@
     "require": {
         "doctrine/dbal": "^2.5",
         "symfony/finder": "^4.0.4",
-        "hanneskod/classtools": "master-dev"
+        "hanneskod/classtools": "dev-master"
     },
     "minimum-stability" : "dev",
     "extra": {
