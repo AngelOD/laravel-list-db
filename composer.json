@@ -14,6 +14,12 @@
             "role": "Original developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/AngelOD/classtools"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "AngelOD\\LaravelListDb\\": "src/"
@@ -22,7 +28,7 @@
     "require": {
         "doctrine/dbal": "^2.5",
         "symfony/finder": "^4.0.4",
-        "hanneskod/classtools": "^1.1.3"
+        "hanneskod/classtools": "master-dev"
     },
     "minimum-stability" : "dev",
     "extra": {
